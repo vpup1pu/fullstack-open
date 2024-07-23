@@ -1,0 +1,34 @@
+sequenceDiagram
+    participant user
+    participant browser
+    participant server
+
+    user->>browser: User opens the page
+    activate browser
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa
+    activate server
+    server-->>browser: HTML document
+    deactivate server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate server
+    server-->>browser: the css file
+    deactivate server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+    activate server
+    server-->>browser: the JavaScript file
+    deactivate server
+    browser-->>user: User sees notes and input
+    deactivate browser
+
+    user->>browser: User clicks save button
+    activate browser
+    Note right of browser: JavaScript handles form submission
+    browser->>server: POST new note as JSON data containing content and date 
+    activate server
+    server-->>browser: HTTP status code 201
+    deactivate server
+
+    browser-->>user: User sees updated notes(without reloading the page)
+    deactivate browser

@@ -1,0 +1,25 @@
+sequenceDiagram
+    participant user
+    participant browser
+    participant server
+
+    user->>browser: User opens the page
+    activate browser
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa
+    activate server
+    server-->>browser: HTML document
+    deactivate server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate server
+    server-->>browser: the css file
+    deactivate server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+    activate server
+    server-->>browser: the JavaScript file
+    deactivate server
+
+    Note right of browser: spa.js handles fetching the initial data internally and updates the page dynamically
+    browser-->>user: User sees notes and input
+    deactivate browser
